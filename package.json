@@ -2,7 +2,9 @@
   "name": "@cally-messenger/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev":"nx run cally-messenger:serve:development"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.0.0",
