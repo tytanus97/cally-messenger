@@ -1,11 +1,11 @@
 export type RegisterUser = {
-    firstName: string
-    lastName: string
     email: string,
     username: string,
 
-    password: string
-    confirmPassword: string
+    passwords: {
+        password: string,
+        confirmPassword: string
+    }
 
     dateOfBirth: Date
 }

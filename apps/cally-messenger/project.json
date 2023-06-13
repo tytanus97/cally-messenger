@@ -24,7 +24,6 @@
           "apps/cally-messenger/src/assets"
         ],
         "styles": [
-          "@angular/material/prebuilt-themes/deeppurple-amber.css",
           "apps/cally-messenger/src/styles.scss"
         ],
         "scripts": []

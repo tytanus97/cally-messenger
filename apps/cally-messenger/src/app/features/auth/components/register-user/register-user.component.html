@@ -1,1 +1,27 @@
-<p>register-user works!</p>
+<div class="user-register-wrapper py-8">
+    <ng-container *ngIf="vm() as vm">
+        <div class="flex justify-center px-8 py-4 rounded-md w-96 bg-secondary-button">
+            <form (ngSubmit)="submit()" #form="ngForm" class="w-full">
+                <div class="mt-2 mb-2">
+                   <cally-messenger-form-username [vm]="vm"></cally-messenger-form-username>
+                </div>
+
+                <div class="mt-2 mb-3">
+                    <cally-messenger-form-email [vm]="vm"></cally-messenger-form-email>
+                </div>
+
+                <div class="mt-2 mb-4">
+                    <cally-messenger-form-birth-date [vm]="vm"></cally-messenger-form-birth-date>
+                </div>
+
+                <div class="mt-2">
+                    <cally-messenger-form-passwords [vm]="vm"></cally-messenger-form-passwords>
+                </div>
+                <button type="submit" class="border-y disabled:text-opacity-40 hover:text-opacity-70 border-slate-500 text-text rounded-lg mt-4 px-4 py-1"
+                    type="submit">Register</button>
+            </form>
+           
+        </div>
+    </ng-container>
+</div>
+<div class="block text-text">{{formState() | json}}</div>

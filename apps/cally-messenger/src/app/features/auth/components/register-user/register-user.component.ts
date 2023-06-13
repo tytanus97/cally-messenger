@@ -1,31 +1,85 @@
-import { Component, OnInit, Signal, computed } from '@angular/core';
+import { AfterViewInit, Component, Injector, OnInit, ViewChild, computed, inject, runInInjectionContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignalState } from '@cally-messenger/shared';
 import { RegisterUser } from '../../models/register-user.model';
+import { FormsModule, NgForm } from '@angular/forms';
+import { debounceTime, map } from 'rxjs';
+import { FormUsernameComponent } from '../../ui/form-username/form-username.component';
+import { FormEmailComponent } from '../../ui/form-email/form-email.component';
+import { FormBirthDateComponent } from '../../ui/form-birth-date/form-birth-date.component';
+import { FormPasswordsComponent } from '../../ui/form-passwords/form-passwords.component';
 
 @Component({
   selector: 'cally-messenger-register-user',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule,FormUsernameComponent,FormEmailComponent,FormBirthDateComponent,FormPasswordsComponent],
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.scss']
 })
-export class RegisterUserComponent extends SignalState<RegisterUser> implements OnInit{
+export class RegisterUserComponent extends SignalState<FormState> implements OnInit, AfterViewInit{
+  private _injector: Injector = inject(Injector)
+
+  @ViewChild('form') form!: NgForm
+  vm = computed(() => {
+    const {user} = this.state()
+    return {
+      user
+    }
+  })
+
+  formState = computed(() => {
+    return this.state().formState
+  })
   
-  vm: Signal<RegisterUser> = computed(() => structuredClone(this.state()))
-  
+
   ngOnInit(): void {
-    this.initialize(INITIAL_STATE)
+    this.initialize({user: INITIAL_USER,formState: {
+       dirty: false,
+       invalid: false,
+       pristine: false,
+       touched: false
+    }})
   }
 
+  ngAfterViewInit(): void {
+    runInInjectionContext(this._injector,() => {
+      this.connectObservables({
+        user: this.form.valueChanges?.pipe(debounceTime(250),map((u) => ({...u} as RegisterUser ))),
+        formState: this.form.statusChanges?.pipe(map(() => {
+          return {
+            invalid: this.form.invalid,
+            touched: this.form.touched,
+            dirty: this.form.dirty,
+            pristine: this.form.pristine
+          }
+        }))
+      })
+    })
+  }
+
+
+  submit() {
+    console.log(this.form) 
+    console.log(this.state())
+  }
 }
 
-const INITIAL_STATE: RegisterUser = {
-  firstName: '',
+const INITIAL_USER: RegisterUser = {
   email: '',
-  lastName: '',
   username: '',
-  password: '',
-  confirmPassword: '',
+  passwords: {
+    password: '',
+    confirmPassword: ''
+  },
   dateOfBirth: new Date()
 } 
+
+type FormState = {
+  user: RegisterUser,
+  formState: {
+    invalid: boolean | null,
+    touched: boolean | null,
+    dirty: boolean | null,
+    pristine: boolean | null
+  }
+}

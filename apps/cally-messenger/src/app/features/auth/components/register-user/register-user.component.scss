@@ -1,0 +1,12 @@
+.user-register-wrapper {
+    
+    display:flex;
+    justify-content: center;
+
+    .form-group {
+        display:block;
+        &__label {
+            display:block;
+        }
+    }
+}
