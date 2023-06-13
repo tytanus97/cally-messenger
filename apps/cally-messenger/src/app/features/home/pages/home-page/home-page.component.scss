@@ -1,0 +1,10 @@
+.home-page-wrapper {
+    height:100%;
+    display:grid;
+    grid-template-rows: 64px auto;
+}
+
+:host {
+    display:block;
+    height: 100%;
+}

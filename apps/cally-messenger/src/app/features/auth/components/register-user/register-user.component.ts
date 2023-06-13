@@ -1,6 +1,5 @@
 import { Component, OnInit, Signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SignalState } from '@cally-messenger/shared';
 import { RegisterUser } from '../../models/register-user.model';
 
