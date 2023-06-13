@@ -7,7 +7,6 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './form-email.component.html',
-  styleUrls: ['./form-email.component.scss'],
   viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
 })
 export class FormEmailComponent {

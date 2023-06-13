@@ -8,7 +8,6 @@ import { PasswordStrength, PasswordStrengthService } from '../../services/passwo
   standalone: true,
   imports: [CommonModule,PasswordStrengthIndicatorComponent],
   templateUrl: './password-strength.component.html',
-  styleUrls: ['./password-strength.component.scss'],
   providers: [PasswordStrengthService]
 })
 export class PasswordStrengthComponent {

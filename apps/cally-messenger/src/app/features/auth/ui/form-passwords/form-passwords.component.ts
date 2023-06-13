@@ -7,7 +7,6 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './form-passwords.component.html',
-  styleUrls: ['./form-passwords.component.scss'],
   viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
 })
 export class FormPasswordsComponent {
