@@ -8,11 +8,13 @@ import { FormUsernameComponent } from '../../ui/form-username/form-username.comp
 import { FormEmailComponent } from '../../ui/form-email/form-email.component';
 import { FormBirthDateComponent } from '../../ui/form-birth-date/form-birth-date.component';
 import { FormPasswordsComponent } from '../../ui/form-passwords/form-passwords.component';
+import { PasswordStrengthComponent } from '../password-strength/password-strength.component';
 
 @Component({
   selector: 'cally-messenger-register-user',
   standalone: true,
-  imports: [CommonModule, FormsModule,FormUsernameComponent,FormEmailComponent,FormBirthDateComponent,FormPasswordsComponent],
+  imports: [CommonModule, FormsModule,FormUsernameComponent,FormEmailComponent,FormBirthDateComponent,FormPasswordsComponent,
+    PasswordStrengthComponent],
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.scss']
 })
@@ -44,7 +46,7 @@ export class RegisterUserComponent extends SignalState<FormState> implements OnI
   ngAfterViewInit(): void {
     runInInjectionContext(this._injector,() => {
       this.connectObservables({
-        user: this.form.valueChanges?.pipe(debounceTime(250),map((u) => ({...u} as RegisterUser ))),
+        user: this.form.valueChanges?.pipe(map((u) => ({...u} as RegisterUser ))),
         formState: this.form.statusChanges?.pipe(map(() => {
           return {
             invalid: this.form.invalid,

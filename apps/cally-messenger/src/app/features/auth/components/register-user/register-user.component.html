@@ -15,7 +15,9 @@
                 </div>
 
                 <div class="mt-2">
-                    <cally-messenger-form-passwords [vm]="vm"></cally-messenger-form-passwords>
+                    <cally-messenger-form-passwords [vm]="vm">
+                        <cally-messenger-password-strength [password]="vm.user.passwords.password"></cally-messenger-password-strength>
+                    </cally-messenger-form-passwords>
                 </div>
                 <button type="submit" class="border-y disabled:text-opacity-40 hover:text-opacity-70 border-slate-500 text-text rounded-lg mt-4 px-4 py-1"
                     type="submit">Register</button>
