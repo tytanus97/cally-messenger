@@ -1,25 +1,27 @@
 import { AfterViewInit, Component, Injector, OnInit, ViewChild, computed, inject, runInInjectionContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SignalState } from '@cally-messenger/shared';
+import { FormDirective, FormModelDirective, SignalState } from '@cally-messenger/shared';
 import { RegisterUser } from '../../models/register-user.model';
 import { FormsModule, NgForm } from '@angular/forms';
-import { debounceTime, map } from 'rxjs';
+import { debounceTime, map, tap } from 'rxjs';
 import { FormUsernameComponent } from '../../ui/form-username/form-username.component';
 import { FormEmailComponent } from '../../ui/form-email/form-email.component';
 import { FormBirthDateComponent } from '../../ui/form-birth-date/form-birth-date.component';
 import { FormPasswordsComponent } from '../../ui/form-passwords/form-passwords.component';
 import { PasswordStrengthComponent } from '../password-strength/password-strength.component';
+import { userValidation } from '../../services/model-validation.service';
 
 @Component({
   selector: 'cally-messenger-register-user',
   standalone: true,
   imports: [CommonModule, FormsModule,FormUsernameComponent,FormEmailComponent,FormBirthDateComponent,FormPasswordsComponent,
-    PasswordStrengthComponent],
+    PasswordStrengthComponent,FormModelDirective,FormDirective],
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.scss']
 })
 export class RegisterUserComponent extends SignalState<FormState> implements OnInit, AfterViewInit{
   private _injector: Injector = inject(Injector)
+  validationSuite = userValidation
 
   @ViewChild('form') form!: NgForm
   vm = computed(() => {
@@ -70,8 +72,8 @@ const INITIAL_USER: RegisterUser = {
   email: '',
   username: '',
   passwords: {
-    password: '',
-    confirmPassword: ''
+    password: 'a',
+    confirmPassword: 'a'
   },
   dateOfBirth: new Date()
 } 

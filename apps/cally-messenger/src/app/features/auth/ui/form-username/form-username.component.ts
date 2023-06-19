@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
+import { FormModelDirective } from '@cally-messenger/shared';
 
 @Component({
   selector: 'cally-messenger-form-username',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,FormModelDirective],
   templateUrl: './form-username.component.html',
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
 })
